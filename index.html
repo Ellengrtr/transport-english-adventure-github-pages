@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>交通英语探险城</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main id="app" class="app-shell">
+      <section class="lesson">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Transport English</p>
+            <h1>交通英语探险城</h1>
+          </div>
+          <div class="progress-strip" aria-label="学习进度">
+            <span id="levelBadge">Level 1 小乘客</span>
+            <span id="ticketCount">0 张车票</span>
+          </div>
+        </header>
+
+        <section class="main-grid">
+          <section class="map-panel" aria-labelledby="mapTitle">
+            <div class="panel-head">
+              <div>
+                <p class="section-kicker">Step 1</p>
+                <h2 id="mapTitle">选择今天的目的地</h2>
+              </div>
+              <button id="resetBtn" class="icon-button" type="button" aria-label="重新开始" title="重新开始">
+                ↻
+              </button>
+            </div>
+
+            <div class="city-map" aria-label="城市地图">
+              <svg class="route-art" viewBox="0 0 760 520" role="img" aria-label="交通城市路线图">
+                <defs>
+                  <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1">
+                    <stop offset="0" stop-color="#dff7ff" />
+                    <stop offset="0.55" stop-color="#f3fbef" />
+                    <stop offset="1" stop-color="#fff1cb" />
+                  </linearGradient>
+                </defs>
+                <rect width="760" height="520" rx="28" fill="url(#sky)" />
+                <path d="M64 336 C150 260 248 444 362 330 C472 218 602 310 704 194" fill="none" stroke="#2f7ebc" stroke-width="18" stroke-linecap="round" opacity=".92" />
+                <path d="M62 186 C194 82 278 160 382 118 C492 74 584 118 702 64" fill="none" stroke="#e09d2f" stroke-width="15" stroke-linecap="round" stroke-dasharray="20 18" />
+                <path d="M92 416 L238 300 L412 378 L628 250" fill="none" stroke="#3a8b63" stroke-width="12" stroke-linecap="round" stroke-dasharray="6 16" />
+                <g class="map-train" transform="translate(198 116)">
+                  <rect x="0" y="0" width="178" height="58" rx="22" fill="#ffffff" stroke="#1e5d87" stroke-width="5" />
+                  <path d="M132 0 L168 20 L178 58 L132 58 Z" fill="#5ac0e8" />
+                  <rect x="22" y="15" width="34" height="18" rx="6" fill="#9de1f4" />
+                  <rect x="68" y="15" width="34" height="18" rx="6" fill="#9de1f4" />
+                  <circle cx="48" cy="62" r="9" fill="#263238" />
+                  <circle cx="122" cy="62" r="9" fill="#263238" />
+                </g>
+                <g class="map-bus" transform="translate(464 306)">
+                  <rect x="0" y="0" width="158" height="70" rx="14" fill="#ffd65c" stroke="#8a6510" stroke-width="5" />
+                  <rect x="20" y="15" width="34" height="22" rx="5" fill="#ffffff" />
+                  <rect x="66" y="15" width="34" height="22" rx="5" fill="#ffffff" />
+                  <rect x="112" y="15" width="24" height="42" rx="5" fill="#ffffff" />
+                  <circle cx="38" cy="73" r="12" fill="#263238" />
+                  <circle cx="118" cy="73" r="12" fill="#263238" />
+                </g>
+                <g class="map-metro" transform="translate(96 352)">
+                  <rect x="0" y="0" width="128" height="76" rx="18" fill="#6ec6a5" stroke="#25664f" stroke-width="5" />
+                  <rect x="20" y="18" width="32" height="24" rx="6" fill="#eafff8" />
+                  <rect x="74" y="18" width="32" height="24" rx="6" fill="#eafff8" />
+                  <path d="M36 60 H92" stroke="#ffffff" stroke-width="7" stroke-linecap="round" />
+                </g>
+              </svg>
+
+              <div id="destinationGrid" class="destination-grid"></div>
+              <div class="destination-pager" aria-label="目的地分页">
+                <button id="prevPageBtn" class="icon-button" type="button" aria-label="上一页目的地" title="上一页目的地">‹</button>
+                <div id="pageDots" class="page-dots" aria-label="目的地页码"></div>
+                <button id="nextPageBtn" class="icon-button" type="button" aria-label="下一页目的地" title="下一页目的地">›</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="mission-panel" aria-labelledby="missionTitle">
+            <div class="panel-head">
+              <div>
+                <p class="section-kicker">Step 2</p>
+                <h2 id="missionTitle">开始小任务</h2>
+              </div>
+              <button id="speakBtn" class="icon-button" type="button" aria-label="播放英文" title="播放英文">▶</button>
+            </div>
+
+            <div id="missionCard" class="mission-card" aria-live="polite"></div>
+
+            <div class="controls-row">
+              <button id="hintBtn" class="soft-button" type="button">给一点提示</button>
+              <button id="nextBtn" class="primary-button" type="button">下一步</button>
+            </div>
+          </section>
+        </section>
+
+        <section class="bottom-grid">
+          <section class="passport-panel" aria-labelledby="passportTitle">
+            <div class="panel-head compact">
+              <div>
+                <p class="section-kicker">Passport</p>
+                <h2 id="passportTitle">我的交通护照</h2>
+              </div>
+              <button id="clearPassportBtn" class="icon-button" type="button" aria-label="清空护照" title="清空护照">
+                ×
+              </button>
+            </div>
+            <div id="passport" class="passport"></div>
+          </section>
+
+          <section class="parent-panel" aria-labelledby="parentTitle">
+            <div class="panel-head compact">
+              <div>
+                <p class="section-kicker">Parent</p>
+                <h2 id="parentTitle">已经练过的表达</h2>
+              </div>
+            </div>
+            <div id="phraseList" class="phrase-list"></div>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <script src="./audio-manifest.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
